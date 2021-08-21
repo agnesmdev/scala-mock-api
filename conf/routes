@@ -1,0 +1,10 @@
+GET    /utilisateurs/:idUtilisateur/evaluations  controllers.EvaluationController.getEvaluationsUtilisateur(idUtilisateur: Int)
+GET    /jeux/:idJeu/moyenne                      controllers.EvaluationController.getMoyenneDureeJeu(idJeu: Int)
+GET    /jeux/:idJeu/evaluations                  controllers.EvaluationController.getEvaluationsJeu(idJeu: Int)
+GET    /console/:console/jeux                    controllers.EvaluationController.getJeuxConsole(console: String)
+POST   /jeux                                     controllers.EvaluationController.creerJeu
+POST   /utilisateurs                             controllers.EvaluationController.creerUtilisateur
+POST   /utilisateurs/:idUtilisateur/jeux/:idJeu  controllers.EvaluationController.creerEvaluation(idUtilisateur: Int, idJeu: Int)
+PUT    /jeux/:idJeu                              controllers.EvaluationController.modifierJeu(idJeu: Int)
+PUT    /utilisateurs/:idUtilisateur              controllers.EvaluationController.modifierUtilisateur(idUtilisateur: Int)
+PUT    /utilisateurs/:idUtilisateur/jeux/:idJeu  controllers.EvaluationController.modifierEvaluation(idUtilisateur: Int, idJeu: Int)

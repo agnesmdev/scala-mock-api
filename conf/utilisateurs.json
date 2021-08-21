@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "age": 28,
+    "email": "valentin.legrand@example.com",
+    "nom": "Mathieu",
+    "prenom": "Louis"
+  },
+  {
+    "id": 2,
+    "age": 66,
+    "email": "melissa.moulin@example.com",
+    "nom": "Gérard",
+    "prenom": "Noah"
+  },
+  {
+    "id": 3,
+    "age": 21,
+    "email": "marie.martinez@example.com",
+    "nom": "Garcia",
+    "prenom": "Adrien"
+  },
+  {
+    "id": 4,
+    "age": 59,
+    "email": "lena.francois@example.com",
+    "nom": "Roussel",
+    "prenom": "Julie"
+  },
+  {
+    "id": 5,
+    "age": 49,
+    "email": "eva.boyer@example.com",
+    "nom": "Barre",
+    "prenom": "Alicia"
+  },
+  {
+    "id": 6,
+    "age": 50,
+    "email": "charlotte.blanc@example.com",
+    "nom": "Arnaud",
+    "prenom": "Célia"
+  },
+  {
+    "id": 7,
+    "age": 57,
+    "email": "tom.bonnet@example.com",
+    "nom": "Faure",
+    "prenom": "Célia"
+  },
+  {
+    "id": 8,
+    "age": 55,
+    "email": "antoine.baron@example.com",
+    "nom": "Roux",
+    "prenom": "Baptiste"
+  },
+  {
+    "id": 9,
+    "age": 43,
+    "email": "lucas.lopez@example.com",
+    "nom": "Renault",
+    "prenom": "Kylian"
+  },
+  {
+    "id": 10,
+    "age": 58,
+    "email": "lea.morin@example.com",
+    "nom": "Marchand",
+    "prenom": "Maeva"
+  }
+]
