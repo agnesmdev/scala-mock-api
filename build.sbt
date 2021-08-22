@@ -5,7 +5,7 @@ lazy val root = (project in file("."))
     scalaVersion := "2.13.6",
     libraryDependencies ++= Seq(
       guice,
-      "net.codingwell" %% "scala-guice" % "4.2.6",
+      "net.codingwell" %% "scala-guice" % "5.0.1",
       "com.github.javafaker" % "javafaker" % "1.0.2",
 
       /** Dépendances pour le framework Play */

@@ -15,7 +15,7 @@ case class Jeu(id: Int,
 }
 
 object Jeu {
-  private val formateurDate = DateTimeFormatter.ofPattern("DD/MM/YYYY")
+  private val formateurDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
   implicit val formateurLocalDate: Format[LocalDate] = new Format[LocalDate] {
     override def writes(ld: LocalDate): JsValue = JsString(formateurDate.format(ld))
 
@@ -25,6 +25,7 @@ object Jeu {
       } catch {
         case _: Exception => JsError("Mauvais format de date")
       }
+      case _ => JsError("Date attendue")
     }
   }
 
@@ -37,11 +38,12 @@ object Jeu {
     )
 
     override def reads(json: JsValue): JsResult[Jeu] = for {
+      id <- (json \ "id").validateOpt[Int]
       console <- (json \ "console").validate[Console]
       nom <- (json \ "nom").validate[String]
-      dateDeSortie <- (json \ "email").validate[LocalDate]
+      dateDeSortie <- (json \ "dateDeSortie").validate[LocalDate]
     } yield {
-      Jeu(0, console, nom, dateDeSortie)
+      Jeu(id.getOrElse(0), console, nom, dateDeSortie)
     }
   }
 }

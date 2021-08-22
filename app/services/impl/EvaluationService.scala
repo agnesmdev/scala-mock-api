@@ -148,12 +148,13 @@ class EvaluationService extends TEvaluationService with Logging {
   }
 
   private def loadFichier[T](nomFichier: String)(implicit jsonFormat: Format[T]): ArrayBuffer[T] = {
-    logger.info(s"Chargement du fichier $nomFichier")
+    logger.info(s"Chargement du fichier $nomFichier.json...")
     val source = Source.fromFile(s"conf/$nomFichier.json")
     val contenu = source.getLines().mkString
     val elements = Json.parse(contenu).validate[List[T]].getOrElse(Nil)
 
     source.close()
+    logger.info(s"${elements.length} éléments chargés du fichier $nomFichier.json !")
     ArrayBuffer.from(elements)
   }
 }

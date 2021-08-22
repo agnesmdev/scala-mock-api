@@ -30,7 +30,7 @@ object Duree {
   }
 
   implicit val formateurDuree: Format[Duree] = new Format[Duree] {
-    override def writes(d: Duree): JsValue = JsString(d.heures + ":" + "%02d".format(d.minutes))
+    override def writes(d: Duree): JsValue = JsString(s"${d.heures}:${"%02d".format(d.minutes)}")
 
     override def reads(json: JsValue): JsResult[Duree] = json match {
       case JsString(duree) => try {

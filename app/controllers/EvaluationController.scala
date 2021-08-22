@@ -242,11 +242,15 @@ class EvaluationController @Inject()(cc: ControllerComponents,
     (request.headers.get("utilisateur"), request.headers.get("motDePasse")) match {
       case (Some(utilisateur), Some(motDePasse)) =>
         if (!authentificationService.login(utilisateur, motDePasse)) {
+          logger.warn(s"Authentification en échec : combinaison utilisateur/mot de passe incorrecte")
           Future.successful(Forbidden("Combinaison utilisateur/mot de passe incorrecte"))
         } else {
+          logger.info(s"Authentification réussie : utilisateur $utilisateur connecté")
           action(request)
         }
-      case _ => Future.successful(Unauthorized("Utilisateur et mot de passe obligatoires"))
+      case _ =>
+        logger.warn(s"Authentification en échec : utilisateur et mot de passe obligatoires")
+        Future.successful(Unauthorized("Utilisateur et mot de passe obligatoires"))
     }
   }
 }

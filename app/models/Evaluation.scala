@@ -23,11 +23,13 @@ object Evaluation {
     )
 
     override def reads(json: JsValue): JsResult[Evaluation] = for {
+      idUtilisateur <- (json \ "idUtilisateur").validateOpt[Int]
+      idJeu <- (json \ "idJeu").validateOpt[Int]
       tempsDeJeu <- (json \ "tempsDeJeu").validate[Duree]
       note <- (json \ "note").validate[Double]
       commentaire <- (json \ "commentaire").validate[String]
     } yield {
-      Evaluation(0, 0, tempsDeJeu, note, commentaire)
+      Evaluation(idUtilisateur.getOrElse(0), idJeu.getOrElse(0), tempsDeJeu, note, commentaire)
     }
   }
 }

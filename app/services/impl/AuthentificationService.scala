@@ -11,13 +11,13 @@ class AuthentificationService @Inject()(configuration: Configuration) extends TA
 
   private val secret: String = configuration.get[String]("api.secret")
 
-  override def login(user: String, password: String): Boolean = {
-    logger.debug(s"Tentative de connexion de l'utilisateur $password")
+  override def login(utilisateur: String, motDePasse: String): Boolean = {
+    logger.debug(s"Tentative de connexion de l'utilisateur $utilisateur")
 
     val md = java.security.MessageDigest.getInstance("SHA-256")
-    val pwd = s"$secret-$user"
+    val pwd = s"$secret-$utilisateur"
     val hashedPassword = DatatypeConverter.printHexBinary(md.digest(pwd.getBytes))
 
-    hashedPassword == password
+    hashedPassword.toLowerCase() == motDePasse.toLowerCase()
   }
 }

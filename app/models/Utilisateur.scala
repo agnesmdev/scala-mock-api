@@ -23,12 +23,13 @@ object Utilisateur {
     )
 
     override def reads(json: JsValue): JsResult[Utilisateur] = for {
+      id <- (json \ "id").validateOpt[Int]
       nom <- (json \ "nom").validate[String]
       prenom <- (json \ "prenom").validate[String]
       age <- (json \ "age").validate[Int]
       email <- (json \ "email").validate[String]
     } yield {
-      Utilisateur(0, nom, prenom, age, email)
+      Utilisateur(id.getOrElse(0), nom, prenom, age, email)
     }
   }
 }
