@@ -1,5 +1,6 @@
 package controllers
 
+import akka.http.scaladsl.model.headers.BasicHttpCredentials
 import models.exceptions._
 import models.{Console, Evaluation, Jeu, Utilisateur}
 import play.api.Logging
@@ -239,8 +240,9 @@ class EvaluationController @Inject()(cc: ControllerComponents,
 
   private def authentification[A](action: Action[A]): Action[A] = Action.async(action.parser) { request =>
     logger.info(s"Authentification pour la requête ${request.uri}")
-    (request.headers.get("utilisateur"), request.headers.get("motDePasse")) match {
-      case (Some(utilisateur), Some(motDePasse)) =>
+
+    extractUserAndPassword(request) match {
+      case Some((utilisateur, motDePasse)) =>
         if (!authentificationService.login(utilisateur, motDePasse)) {
           logger.warn(s"Authentification en échec : combinaison utilisateur/mot de passe incorrecte")
           Future.successful(Forbidden("Combinaison utilisateur/mot de passe incorrecte"))
@@ -248,9 +250,24 @@ class EvaluationController @Inject()(cc: ControllerComponents,
           logger.info(s"Authentification réussie : utilisateur $utilisateur connecté")
           action(request)
         }
-      case _ =>
+      case None =>
         logger.warn(s"Authentification en échec : utilisateur et mot de passe obligatoires")
         Future.successful(Unauthorized("Utilisateur et mot de passe obligatoires"))
+    }
+  }
+
+  private def extractUserAndPassword[A](request: Request[A]): Option[(String, String)] = {
+    request.headers.get(AUTHORIZATION) match {
+      case None => (request.headers.get("utilisateur"), request.headers.get("motDePasse")) match {
+        case (Some(utilisateur), Some(motDePasse)) =>
+          logger.info("Authentification via les headers")
+          Some((utilisateur, motDePasse))
+        case _ => None
+      }
+      case Some(authorization) =>
+        logger.info("Authentification classique")
+        val credentials = BasicHttpCredentials(authorization.replace("Basic ", ""))
+        Some((credentials.username, credentials.password))
     }
   }
 }
