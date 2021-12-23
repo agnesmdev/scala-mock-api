@@ -8,3 +8,11 @@ POST   /utilisateurs/:idUtilisateur/jeux/:idJeu  controllers.EvaluationControlle
 PUT    /jeux/:idJeu                              controllers.EvaluationController.modifierJeu(idJeu: Int)
 PUT    /utilisateurs/:idUtilisateur              controllers.EvaluationController.modifierUtilisateur(idUtilisateur: Int)
 PUT    /utilisateurs/:idUtilisateur/jeux/:idJeu  controllers.EvaluationController.modifierEvaluation(idUtilisateur: Int, idJeu: Int)
+### NoDocs ###
+GET    /                                         controllers.EvaluationController.redirectToSwagger()
+
+### NoDocs ###
+GET   /docs/swagger-ui/*file                     controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+### NoDocs ###
+GET   /assets/*file                              controllers.Assets.versioned(path="/public", file: Asset)
+

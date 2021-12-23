@@ -224,6 +224,10 @@ class EvaluationController @Inject()(cc: ControllerComponents,
     }
   }
 
+  def redirectToSwagger(): Action[AnyContent] = Action {
+    Redirect("/docs/swagger-ui/index.html?url=/assets/swagger.json")
+  }
+
   private def validerCorps[A](request: Request[AnyContent])(implicit jsonFormat: Format[A]): Either[JsValue, A] = {
     request.body.asJson match {
       case None =>
